@@ -1,0 +1,14 @@
+name: books-to-read
+on: pull_request
+jobs:
+  check-feature-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - run: chmod +x ./gradlew
+      - run: ./gradlew test
+      - run: ./gradlew assemble
