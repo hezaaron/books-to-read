@@ -1,7 +1,7 @@
 name: books-to-read
 on: pull_request
 jobs:
-  check-feature-build
+  check-feature-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
