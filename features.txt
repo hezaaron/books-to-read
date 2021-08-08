@@ -1,0 +1,6 @@
+Features:
+========
+1.	As a user, I want to add multiple books to my bookshelf so that i can read them later
+2.	As a user, I should be able to arrange my bookshelf based on certain criteris
+3.	As a user, I should be able to group books in my bookshelf based on certain criteria
+4.	As a user, I want to track the progress of my bookshelf based on the books I have read
