@@ -8,6 +8,6 @@ jobs:
       - uses: actions/setup-java@2
         with:
           java-version: '11'
-        run: chmod +x ./gradlew
-        run: ./gradlew test
-        run: ./gradlew assemble
+      - run: chmod +x ./gradlew
+      - run: ./gradlew test
+      - run: ./gradlew assemble
