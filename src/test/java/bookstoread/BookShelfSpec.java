@@ -1,14 +1,14 @@
 package bookstoread;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("A bookShelf")
 @ExtendWith(BooksParameterResolver.class)
@@ -81,4 +81,31 @@ public class BookShelfSpec {
         }
 
     }
+
+    @Nested @DisplayName("after arranging books")
+    class BooksAreArranged {
+
+        @Disabled("Needs to implement Comparator")
+        @Test @DisplayName("books are arranged lexicographically by book title")
+        void bookshelfArrangeByBookTitle() {
+            shelf.addBooks(effectiveJava, codeComplete, mythicalManMonth);
+
+            List<Book> books = shelf.arrange();
+
+            assertThat(books).isSorted().as(() -> "Books in a bookshelf should be arranged lexicographically by book title");
+        }
+
+        @Test @DisplayName("books are in insertion order after calling arrange method")
+        void booksInBookShelfAreInInsertionOrderAfterCallingArange() {
+            shelf.addBooks(effectiveJava, codeComplete, mythicalManMonth);
+            shelf.arrange();
+
+            List<Book> books = shelf.books();
+
+            assertEquals(Arrays.asList(effectiveJava, codeComplete, mythicalManMonth),
+                    books, () -> "Books in bookshelf are in insertion order");
+        }
+
+    }
+
 }
