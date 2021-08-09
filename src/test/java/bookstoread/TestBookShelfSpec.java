@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("A bookShelf")
 @ExtendWith(BooksParameterResolver.class)
-class BookShelfSpec {
+class TestBookShelfSpec {
 
     private BookShelf shelf;
     private Book effectiveJava;
@@ -28,7 +28,7 @@ class BookShelfSpec {
         this.cleanCode = books.get("Clean Code");
     }
 
-    BookShelfSpec(TestInfo testInfo) {
+    TestBookShelfSpec(TestInfo testInfo) {
         System.out.println("Working on test " + testInfo.getDisplayName());
     }
 
@@ -128,12 +128,9 @@ class BookShelfSpec {
 
             System.out.println(booksByPublicationYear);
 
-            assertThat(booksByPublicationYear).containsKey(Year.of(2008))
-                    .containsValues(Arrays.asList(effectiveJava, cleanCode));
-            assertThat(booksByPublicationYear).containsKey(Year.of(2004))
-                    .containsValues(Collections.singletonList(codeComplete));
-            assertThat(booksByPublicationYear).containsKey(Year.of(1975))
-                    .containsValues(Collections.singletonList(mythicalManMonth));
+            assertThat(booksByPublicationYear).containsKey(Year.of(2008)).containsValues(Arrays.asList(effectiveJava, cleanCode));
+            assertThat(booksByPublicationYear).containsKey(Year.of(2004)).containsValues(Collections.singletonList(codeComplete));
+            assertThat(booksByPublicationYear).containsKey(Year.of(1975)).containsValues(Collections.singletonList(mythicalManMonth));
         }
 
         @Test @DisplayName("books inside bookshelf are grouped according to user provided criteria(group by author name)")
@@ -142,14 +139,10 @@ class BookShelfSpec {
 
             Map<String, List<Book>> booksByAuthor = shelf.groupByAuthor();
 
-            assertThat(booksByAuthor).containsKey("Joshua Bloch")
-                    .containsValue(Collections.singletonList(effectiveJava));
-            assertThat(booksByAuthor).containsKey("Steve McConnel")
-                    .containsValue(Collections.singletonList(codeComplete));
-            assertThat(booksByAuthor).containsKey("Frederick Phillips Brooks")
-                    .containsValue(Collections.singletonList(mythicalManMonth));
-            assertThat(booksByAuthor).containsKey("Robert C. Martin")
-                    .containsValue(Collections.singletonList(cleanCode));
+            assertThat(booksByAuthor).containsKey("Joshua Bloch").containsValue(Collections.singletonList(effectiveJava));
+            assertThat(booksByAuthor).containsKey("Steve McConnell").containsValue(Collections.singletonList(codeComplete));
+            assertThat(booksByAuthor).containsKey("Frederick Phillips Brooks").containsValue(Collections.singletonList(mythicalManMonth));
+            assertThat(booksByAuthor).containsKey("Robert C. Martin").containsValue(Collections.singletonList(cleanCode));
         }
 
     }

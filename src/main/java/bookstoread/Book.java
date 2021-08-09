@@ -37,11 +37,6 @@ public class Book implements Comparable<Book> {
                 '}';
     }
 
-    @Override
-    public int compareTo(Book that) {
-        return this.title.compareTo(that.title);
-    }
-
     public void startedReadingOn(LocalDate startedReadingOn) {
         this.startedReadingOn = startedReadingOn;
     }
@@ -52,5 +47,31 @@ public class Book implements Comparable<Book> {
 
     public boolean isRead() {
         return startedReadingOn != null && finishedReadingOn != null;
+    }
+
+    @Override
+    public int compareTo(Book that) {
+        return this.title.compareTo(that.title);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+
+        Book that = (Book) obj;
+        if (this.title == null) {
+            if (that.title != null) return false;
+        } else if (!title.equals(that.title)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        return prime * result + ((this.title == null) ? 0 : title.hashCode());
     }
 }

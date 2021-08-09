@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("A bookshelf progress")
 @ExtendWith(BooksParameterResolver.class)
-class BookShelfProgressSpec {
+class TestBookShelfProgressSpec {
 
     private BookShelf shelf;
     private Book effectiveJava;
