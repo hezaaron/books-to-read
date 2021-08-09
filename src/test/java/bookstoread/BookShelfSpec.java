@@ -3,9 +3,8 @@ package bookstoread;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.time.Year;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -104,6 +103,51 @@ public class BookShelfSpec {
 
             assertEquals(Arrays.asList(effectiveJava, codeComplete, mythicalManMonth),
                     books, () -> "Books in bookshelf are in insertion order");
+        }
+
+    }
+
+    @Nested @DisplayName("after grouping books")
+    class BooksAreGrouped {
+
+        @Test @DisplayName("books are grouped according to user provided criteria")
+        void bookshelfArrangedByUserProvidedCriteria() {
+            shelf.addBooks(effectiveJava, codeComplete, mythicalManMonth);
+            Comparator<Book> reversedOrder = Comparator.<Book>naturalOrder().reversed();
+
+            List<Book> books = shelf.arrange(reversedOrder);
+
+            assertThat(books).isSortedAccordingTo(reversedOrder);
+        }
+
+        @Test @DisplayName("books are grouped by publication year")
+        void groupBooksInsideBookShelfByPublicationYear() {
+            shelf.addBooks(effectiveJava, codeComplete, mythicalManMonth, cleanCode);
+
+            Map<Year, List<Book>> booksByPublicationYear = shelf.groupByPublicationYear();
+
+            assertThat(booksByPublicationYear).containsKey(Year.of(2008))
+                    .containsValues(Arrays.asList(effectiveJava, cleanCode));
+            assertThat(booksByPublicationYear).containsKey(Year.of(2004))
+                    .containsValues(Collections.singletonList(codeComplete));
+            assertThat(booksByPublicationYear).containsKey(Year.of(1975))
+                    .containsValues(Collections.singletonList(mythicalManMonth));
+        }
+
+        @Test @DisplayName("books inside bookshelf are grouped according to user provided criteria(group by author name)")
+        void groupBooksByUserProvidedCriteria() {
+            shelf.addBooks(effectiveJava, codeComplete, mythicalManMonth, cleanCode);
+
+            Map<String, List<Book>> booksByAuthor = shelf.groupByAuthor();
+
+            assertThat(booksByAuthor).containsKey("Joshua Bloch")
+                    .containsValue(Collections.singletonList(effectiveJava));
+            assertThat(booksByAuthor).containsKey("Steve McConnel")
+                    .containsValue(Collections.singletonList(codeComplete));
+            assertThat(booksByAuthor).containsKey("Frederick Phillips Brooks")
+                    .containsValue(Collections.singletonList(mythicalManMonth));
+            assertThat(booksByAuthor).containsKey("Robert C. Martin")
+                    .containsValue(Collections.singletonList(cleanCode));
         }
 
     }
