@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("A bookShelf")
 @ExtendWith(BooksParameterResolver.class)
-public class BookShelfSpec {
+class BookShelfSpec {
 
     private BookShelf shelf;
     private Book effectiveJava;
@@ -39,7 +39,7 @@ public class BookShelfSpec {
         void shelfEmptyWhenNoBookAdded() {
             List<Book> books = shelf.books();
 
-            assertTrue(books.isEmpty(), () -> "BookShelf should be empty.");
+            assertTrue(books.isEmpty(), "BookShelf should be empty.");
         }
 
         @Test @DisplayName("remains empty when addBooks is called without books")
@@ -48,7 +48,7 @@ public class BookShelfSpec {
 
             List<Book> books = shelf.books();
 
-            assertTrue(books.isEmpty(), () -> "BookShelf should be empty.");
+            assertTrue(books.isEmpty(), "BookShelf should be empty.");
         }
 
     }
@@ -62,7 +62,7 @@ public class BookShelfSpec {
 
             List<Book> books = shelf.books();
 
-            assertEquals(2, books.size(), () -> "BookShelf should have two books.");
+            assertEquals(2, books.size(), "BookShelf should have two books.");
         }
 
         @Test @DisplayName("returns an immutable books collection to client")
@@ -73,9 +73,9 @@ public class BookShelfSpec {
 
             try {
                 books.add(mythicalManMonth);
-                fail(() -> "Should not be able to add book to books");
+                fail("Should not be able to add book to books");
             } catch (Exception e) {
-                assertTrue(e instanceof UnsupportedOperationException, () -> "Should throw UnSupportedOperationException.");
+                assertTrue(e instanceof UnsupportedOperationException, "Should throw UnSupportedOperationException.");
             }
         }
 
@@ -91,7 +91,7 @@ public class BookShelfSpec {
 
             List<Book> books = shelf.arrange();
 
-            assertThat(books).isSorted().as(() -> "Books in a bookshelf should be arranged lexicographically by book title");
+            assertThat(books).isSorted();
         }
 
         @Test @DisplayName("books are in insertion order after calling arrange method")
@@ -102,7 +102,7 @@ public class BookShelfSpec {
             List<Book> books = shelf.books();
 
             assertEquals(Arrays.asList(effectiveJava, codeComplete, mythicalManMonth),
-                    books, () -> "Books in bookshelf are in insertion order");
+                    books, "Books in bookshelf are in insertion order");
         }
 
     }
@@ -125,6 +125,8 @@ public class BookShelfSpec {
             shelf.addBooks(effectiveJava, codeComplete, mythicalManMonth, cleanCode);
 
             Map<Year, List<Book>> booksByPublicationYear = shelf.groupByPublicationYear();
+
+            System.out.println(booksByPublicationYear);
 
             assertThat(booksByPublicationYear).containsKey(Year.of(2008))
                     .containsValues(Arrays.asList(effectiveJava, cleanCode));
