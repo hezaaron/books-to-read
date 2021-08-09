@@ -36,4 +36,21 @@ public class BookShelf {
     public Map<String, List<Book>> groupByAuthor() {
         return groupBy(Book::getAuthor);
     }
+
+    public Progress progress() {
+        final int booksRead = (int) books.stream().filter(Book::isRead).count();
+        final int booksToRead = books.size() - booksRead;
+        int percentageCompleted;
+        int percentageToRead;
+
+        try {
+            percentageCompleted = booksRead * 100 / books.size();
+            percentageToRead = booksToRead * 100 / books.size();
+        } catch (ArithmeticException ae) {
+            System.err.println("Your BookShelf is empty; add some books!");
+            return new Progress(0, 0, 0);
+        }
+
+        return new Progress(percentageCompleted, percentageToRead, 0);
+    }
 }
