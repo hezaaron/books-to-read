@@ -3,9 +3,12 @@ package bookstoread;
 import java.time.Year;
 import java.util.*;
 import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class BookShelf {
+    private static final Logger LOGGER = Logger.getLogger(BookShelf.class.getName());
 
     private final List<Book> books = new ArrayList<>();
 
@@ -47,7 +50,7 @@ public class BookShelf {
             percentageCompleted = booksRead * 100 / books.size();
             percentageToRead = booksToRead * 100 / books.size();
         } catch (ArithmeticException ae) {
-            System.err.println("Your BookShelf is empty; add some books!");
+            LOGGER.log(Level.FINE, String.format("%s, %s", ae.toString(), "; Your BookShelf is empty, add some books!"));
             return new Progress(0, 0, 0);
         }
 
