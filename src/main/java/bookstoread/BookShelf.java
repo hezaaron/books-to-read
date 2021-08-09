@@ -1,6 +1,8 @@
 package bookstoread;
 
+import java.time.Year;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class BookShelf {
@@ -21,5 +23,17 @@ public class BookShelf {
 
     public List<Book> arrange() {
         return arrange(Comparator.naturalOrder());
+    }
+
+    public <K> Map<K, List<Book>> groupBy(Function<Book, K> fx) {
+        return books.stream().collect(Collectors.groupingBy(fx));
+    }
+
+    public Map<Year, List<Book>> groupByPublicationYear() {
+        return groupBy(book -> Year.of(book.getPublishedOn().getYear()));
+    }
+
+    public Map<String, List<Book>> groupByAuthor() {
+        return groupBy(Book::getAuthor);
     }
 }
