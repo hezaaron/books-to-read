@@ -21,7 +21,7 @@ class TestBookShelfSpec {
 
     @BeforeEach
     void init(Map<String, Book> books) {
-        shelf = new BookShelf();
+        this.shelf = new BookShelf();
         this.effectiveJava = books.get("Effective Java");
         this.codeComplete = books.get("Code Complete");
         this.mythicalManMonth = books.get("The Mythical Man-Month");

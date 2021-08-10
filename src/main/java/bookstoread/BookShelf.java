@@ -56,4 +56,14 @@ public class BookShelf {
 
         return new Progress(percentageCompleted, percentageToRead, 0);
     }
+
+    public List<Book> findBooksByTitle(String title) {
+        return books.stream().filter(b -> b.getTitle().toLowerCase().contains(title))
+                             .collect(Collectors.toList());
+    }
+
+    public List<Book> findBooksByTitle(String title, BookFilter filter) {
+        return findBooksByTitle(title).stream().filter(filter::apply)
+                                      .collect(Collectors.toList());
+    }
 }

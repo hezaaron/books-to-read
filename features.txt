@@ -4,3 +4,5 @@ Features:
 2.	As a user, I should be able to arrange my bookshelf based on certain criteria
 3.	As a user, I should be able to group books in my bookshelf based on certain criteria
 4.	As a user, I want to track the progress of my bookshelf based on the books I have read
+5.  As a user, I should be able to search my bookshelf. The search results can be filtered
+    by different attributes of the book like author and published date.
