@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("A bookShelf")
 @ExtendWith(BooksParameterResolver.class)
-class TestBookShelfSpec {
+class TestBookShelf {
 
     private BookShelf shelf;
     private Book effectiveJava;
@@ -28,7 +28,7 @@ class TestBookShelfSpec {
         this.cleanCode = books.get("Clean Code");
     }
 
-    TestBookShelfSpec(TestInfo testInfo) {
+    TestBookShelf(TestInfo testInfo) {
         System.out.println("Working on test " + testInfo.getDisplayName());
     }
 
