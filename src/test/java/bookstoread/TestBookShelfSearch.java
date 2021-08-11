@@ -13,10 +13,11 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
 @DisplayName("A bookshelf search")
 @ExtendWith(BooksParameterResolver.class)
-class TestBookShelfSearchSpec {
+class TestBookShelfSearch {
 
     private BookShelf shelf;
     private Book effectiveJava;
@@ -65,43 +66,6 @@ class TestBookShelfSearchSpec {
             assertFalse(filter.apply(codeComplete));
         }
 
-        @Test @DisplayName("is before asked year")
-        void validateBookPublishedDatePreAskedYear() {
-            BookFilter filter = BookPublishedBeforeYearFilter.before(2007);
-
-            assertTrue(filter.apply(codeComplete));
-            assertFalse(filter.apply(cleanCode));
-        }
-    }
-
-    @Nested @DisplayName("Composite criteria")
-    class CompositeCriteriaFilter {
-
-        @Test @DisplayName(" is based on multiple filters")
-        void shouldFilterOnMultiplesCriteria() {
-            CompositeFilter compositeFilter = new CompositeFilter();
-            compositeFilter.addFilter(b -> false);
-
-            assertFalse(compositeFilter.apply(cleanCode));
-        }
-
-        @Test @DisplayName(" does not invoke after first failure")
-        void shouldNotInvokeAfterFailure() {
-            CompositeFilter compositeFilter = new CompositeFilter();
-            compositeFilter.addFilter(b -> false);
-            compositeFilter.addFilter(b -> true);
-
-            assertFalse(compositeFilter.apply(cleanCode));
-        }
-
-        @Test @DisplayName("invokes all filters")
-        void shouldInvokeAllFilter() {
-            CompositeFilter compositeFilter = new CompositeFilter();
-            compositeFilter.addFilter(b -> true);
-            compositeFilter.addFilter(b -> true);
-
-            assertTrue(compositeFilter.apply(cleanCode));
-        }
     }
 
 }
